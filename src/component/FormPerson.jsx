@@ -1,6 +1,6 @@
 import React , {useState} from 'react'
 
-const baseUrl = "http://18.208.142.244:3000/api/"
+const baseUrl = import.meta.env.VITE_BASE_URL;
 const endPoint = "person"
 
 export const FormPerson = () => {
