@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import { Person } from './page/Person'
 import { Home } from './page/Home'
 import { EditPerson } from './page/EditPerson'
+import { Phones } from './page/Phones'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 
@@ -17,6 +18,7 @@ function App() {
           <Route path='/' element={<Home/>} />
           <Route path='/person' element={<Person/>} />
           <Route path='/editPerson/:id_person' element={<EditPerson/>} />
+          <Route path='/phone/:person_id' element={<Phones/>} />
         </Routes>
       </BrowserRouter>
       

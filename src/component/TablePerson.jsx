@@ -35,8 +35,12 @@ export const TablePerson = () => {
         })
 
         const data = await result.json()
-        
+
         window.location.reload();
+    }
+
+    const phoneHandler = (id) => {
+        navigate(`/phone/${id}`)
     }
 
     useEffect(() => {
@@ -49,40 +53,52 @@ export const TablePerson = () => {
         <>
             <h1>People Data Base</h1>
 
-            <table className='table table-striped'>
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Gender</th>
-                        <th>Birth Date</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
+            <div className="table-responsive">
+                <table className='table'>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Gender</th>
+                            <th>Birth Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
 
-                <tbody>
+                    <tbody>
 
-                    {
-                        dataPeople.map((item) => (
-                            <tr key={item.person_id}>
-                                <td> {item.name} </td>
-                                <td> {item.gender} </td>
-                                <td> {item.birth_date} </td>
-                                <td>
-                                    <button className='btn btn-primary'
-                                        onClick={() => handleEdit(item.person_id)} >
-                                        Edit
-                                    </button>
-                                    <button className='btn btn-danger'
-                                        onClick={() => handleDelete(item.person_id)} >
-                                        Delete
-                                    </button>
-                                </td>
-                            </tr>
-                        ))
-                    }
+                        {
+                            dataPeople.map((item) => (
+                                <tr key={item.person_id}>
+                                    <td> {item.name} </td>
+                                    <td> {item.gender} </td>
+                                    <td> {item.birth_date} </td>
+                                    <td>
+                                        <button type="button" className="btn btn-primary m-1"
+                                            onClick={() => handleEdit(item.person_id)} >
 
-                </tbody>
-            </table>
+                                            <i className="bi bi-pencil-square"></i>
+
+                                        </button>
+                                        <button type="button" className='btn btn-danger m-1'
+                                            onClick={() => handleDelete(item.person_id)} >
+
+                                            <i className="bi bi-person-x"></i>
+
+                                        </button>
+                                        <button type="button" className='btn btn-info m-1'
+                                            onClick={() => phoneHandler(item.person_id)} >
+
+                                            <i className="bi bi-telephone"></i>
+
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))
+                        }
+
+                    </tbody>
+                </table>
+            </div>
         </>
     )
 }
