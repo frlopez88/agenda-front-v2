@@ -21,19 +21,17 @@ export const EditFormPerson = () => {
     );
 
     const formHandler = (event) => {
-        const inputName = event.target.name;
-        const inputValue = event.target.value;
-
+        const {name, value} = event.target;
+        
         const temp = {
-            name: personEdit.email,
-            birth_date: personEdit.password, 
+            name: personEdit.name,
+            birth_date: personEdit.birth_date,
             gender: personEdit.gender
         }
-
-        temp[event.target.name] = event.target.value
-
-        setPersonEdit(temp)
         
+        temp[name] = value
+        
+        setPersonEdit(temp)
     }
 
     const getPersonById = async () => {
@@ -53,11 +51,13 @@ export const EditFormPerson = () => {
 
         const { name, birth_date, gender } = element
 
-        setPersonEdit({
-            name,
-            birth_date,
-            gender
-        })
+        const temp = {
+            name: name,
+            birth_date: birth_date,
+            gender: gender
+        }
+
+        setPersonEdit(temp)
 
     }
 
@@ -111,7 +111,7 @@ export const EditFormPerson = () => {
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Birth Date</label>
-                        <input name="birth_date" onChange={formHandler} value={personEdit.birth_date} type="date" className="form-control" />
+                        <input name="birth_date" onChange={formHandler} value={personEdit.birth_date || ""} type="date" className="form-control" />
                     </div>
 
                     <button className='btn btn-primary w-100'  >Save Data</button>
