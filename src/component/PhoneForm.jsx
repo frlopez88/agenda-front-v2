@@ -27,12 +27,13 @@ export const PhoneForm = () => {
 
     event.preventDefault()
     const url = `${baseUrl}${endPoint}`
-
+    const token = localStorage.getItem("token")
     const result = await fetch(url, {
       method: "POST", 
       body: JSON.stringify(phone),
       headers: {
-        'Content-Type' : "application/json"
+        'Content-Type' : "application/json", 
+        'Authorization' : token
       }
     })
 

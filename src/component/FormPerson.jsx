@@ -17,13 +17,14 @@ export const FormPerson = () => {
 
         event.preventDefault()
 
-
+        const token = localStorage.getItem("token")
         const url = baseUrl + endPoint
         const result = await fetch(url, {
             method: "POST", 
             body: JSON.stringify(newPerson), 
             headers: {
-                'Content-Type' : 'application/json'
+                'Content-Type' : 'application/json', 
+                'Authorization' : token
             }
         })
 

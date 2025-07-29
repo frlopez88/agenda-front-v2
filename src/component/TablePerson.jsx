@@ -14,8 +14,15 @@ export const TablePerson = () => {
 
     const getPersons = async () => {
 
+        const token = localStorage.getItem("token")
+
         const url = baseUrl + endPoint
-        const result = await fetch(url)
+        const result = await fetch(url, {
+            method: "GET", 
+            headers: {
+                'Authorization' : token
+            }
+        })
         const data = await result.json()
         setDataPeople(data)
 
@@ -30,8 +37,12 @@ export const TablePerson = () => {
     const handleDelete = async (id) => {
 
         const url = `${baseUrl}${endPoint}/${id}`
+        const token = localStorage.getItem("token")
         const result = await fetch(url, {
-            method: "DELETE"
+            method: "DELETE", 
+            headers: {
+                'Authorization' : token
+            }
         })
 
         const data = await result.json()
@@ -54,7 +65,7 @@ export const TablePerson = () => {
             <h1>People Data Base</h1>
 
             <div className="table-responsive">
-                <table className='table'>
+                <table className='table table-dark'>
                     <thead>
                         <tr>
                             <th>Name</th>

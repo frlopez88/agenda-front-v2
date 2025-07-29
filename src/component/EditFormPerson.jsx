@@ -23,8 +23,17 @@ export const EditFormPerson = () => {
     const formHandler = (event) => {
         const inputName = event.target.name;
         const inputValue = event.target.value;
-        personEdit[inputName] = inputValue;
-        console.log(personEdit)
+
+        const temp = {
+            name: personEdit.email,
+            birth_date: personEdit.password, 
+            gender: personEdit.gender
+        }
+
+        temp[event.target.name] = event.target.value
+
+        setPersonEdit(temp)
+        
     }
 
     const getPersonById = async () => {
@@ -33,12 +42,16 @@ export const EditFormPerson = () => {
         const baseUrl = import.meta.env.VITE_BASE_URL;
         const endPoint = "person"
         const url = `${baseUrl}${endPoint}/${id_person}`
-
-        const result = await fetch(url)
+        const token = localStorage.getItem("token")
+        const result = await fetch(url, {
+            headers: {
+                'Authorization': token
+            }
+        })
         const data = await result.json()
         const element = data[0]
 
-        const { name,birth_date,gender } = element
+        const { name, birth_date, gender } = element
 
         setPersonEdit({
             name,
@@ -46,7 +59,6 @@ export const EditFormPerson = () => {
             gender
         })
 
-        console.log(birth_date)
     }
 
     const submintHandler = async () => {
@@ -57,13 +69,14 @@ export const EditFormPerson = () => {
 
         const url = `${baseUrl}${endPoint}/${id_person}`
 
-        console.log(url);
+        const token = localStorage.getItem("token")
 
         const result = await fetch(url, {
             method: "PUT",
             body: JSON.stringify(personEdit),
             headers: {
-                'Content-Type': "application/json"
+                'Content-Type': "application/json",
+                'Authorization': token
             }
         })
 
@@ -85,12 +98,12 @@ export const EditFormPerson = () => {
                 <form onSubmit={submintHandler}>
                     <div className="mb-3">
                         <label className="form-label">Name</label>
-                        <input name="name" onChange={formHandler}
-                            type="text"  className="form-control" />
+                        <input name="name" onChange={formHandler} value={personEdit.name}
+                            type="text" className="form-control" />
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Gender</label>
-                        <select  name="gender" onChange={formHandler} className="form-select" aria-label="Default select example">
+                        <select name="gender" onChange={formHandler} value={personEdit.gender} className="form-select" aria-label="Default select example">
                             <option >Open this select menu</option>
                             <option value="M">Male</option>
                             <option value="F">Female</option>
@@ -98,7 +111,7 @@ export const EditFormPerson = () => {
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Birth Date</label>
-                        <input  name="birth_date" onChange={formHandler} type="date" className="form-control" />
+                        <input name="birth_date" onChange={formHandler} value={personEdit.birth_date} type="date" className="form-control" />
                     </div>
 
                     <button className='btn btn-primary w-100'  >Save Data</button>
