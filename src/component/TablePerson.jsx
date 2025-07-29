@@ -18,9 +18,9 @@ export const TablePerson = () => {
 
         const url = baseUrl + endPoint
         const result = await fetch(url, {
-            method: "GET", 
+            method: "GET",
             headers: {
-                'Authorization' : token
+                'Authorization': token
             }
         })
         const data = await result.json()
@@ -39,9 +39,9 @@ export const TablePerson = () => {
         const url = `${baseUrl}${endPoint}/${id}`
         const token = localStorage.getItem("token")
         const result = await fetch(url, {
-            method: "DELETE", 
+            method: "DELETE",
             headers: {
-                'Authorization' : token
+                'Authorization': token
             }
         })
 
@@ -71,7 +71,9 @@ export const TablePerson = () => {
                             <th>Name</th>
                             <th>Gender</th>
                             <th>Birth Date</th>
-                            <th>Actions</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                            <th>Phones</th>
                         </tr>
                     </thead>
 
@@ -89,13 +91,18 @@ export const TablePerson = () => {
 
                                             <i className="bi bi-pencil-square"></i>
 
+
                                         </button>
+                                    </td>
+                                    <td>
                                         <button type="button" className='btn btn-danger m-1'
                                             onClick={() => handleDelete(item.person_id)} >
 
                                             <i className="bi bi-person-x"></i>
 
                                         </button>
+                                    </td>
+                                    <td>
                                         <button type="button" className='btn btn-info m-1'
                                             onClick={() => phoneHandler(item.person_id)} >
 
